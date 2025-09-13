@@ -1,0 +1,146 @@
+{
+  "actions": {
+    "delete": "Smazat",
+    "deleteConfirm": "Opravdu chcete smazat tento záznam?",
+    "deleteError": "Při mazání záznamu došlo k chybě",
+    "deleteSuccess": "Záznam byl úspěšně smazán",
+    "detail": "Detail",
+    "edit": "Upravit",
+    "new": "Nový",
+    "noItems": "Žádné",
+    "showDeleted": "Zobrazit smazané"
+  },
+  "auth": {
+    "forgotPassword": {
+      "backTo": "Zpět na",
+      "email": "E-mail",
+      "login": "přihlášení",
+      "submit": "Odeslat odkaz pro obnovu hesla",
+      "subtitle": "Zadejte svůj e-mail a my vám pošleme odkaz pro obnovu hesla",
+      "success": "Odkaz pro obnovu hesla byl odeslán na váš e-mail",
+      "title": "Obnova hesla"
+    },
+    "login": {
+      "email": "E-mail",
+      "forgotPassword": "Zapomenuté heslo?",
+      "noAccount": "Nemáte účet?",
+      "password": "Heslo",
+      "register": "Registrovat se",
+      "submit": "Přihlásit se",
+      "subtitle": "Zadejte své přihlašovací údaje",
+      "title": "Přihlášení"
+    },
+    "logout": "Odhlásit se",
+    "register": {
+      "confirmPassword": "Potvrďte heslo",
+      "email": "E-mail",
+      "haveAccount": "Máte již účet?",
+      "login": "Přihlásit se",
+      "password": "Heslo",
+      "submit": "Registrovat se",
+      "subtitle": "Zadejte své registrační údaje",
+      "title": "Registrace"
+    },
+    "resetPassword": {
+      "backTo": "Zpět na",
+      "confirmPassword": "Potvrďte heslo",
+      "login": "přihlášení",
+      "password": "Heslo",
+      "submit": "Obnovit heslo",
+      "subtitle": "Zadejte nové heslo",
+      "success": "Heslo bylo úspěšně obnoveno. Nyní se můžete přihlásit",
+      "title": "Obnova hesla"
+    },
+    "verifyAccount": {
+      "backTo": "Zpět na",
+      "confirmPassword": "Potvrďte heslo",
+      "login": "přihlášení",
+      "password": "Heslo",
+      "submit": "Ověřit účet",
+      "subtitle": "Zadejte nové heslo pro ověření vašeho účtu",
+      "success": "Účet byl úspěšně ověřen. Nyní se můžete přihlásit",
+      "title": "Ověření účtu"
+    }
+  },
+  "autocomplete": {
+    "loading": "Načítání...",
+    "loadingDefaultValues": "Načítání výchozích hodnot...",
+    "noResults": "Žádné výsledky"
+  },
+  "calendar": {
+    "allDay": "celý den",
+    "day": "Den",
+    "month": "Měsíc",
+    "months": [
+      "Leden",
+      "Únor",
+      "Březen",
+      "Duben",
+      "Květen",
+      "Červen",
+      "Červenec",
+      "Srpen",
+      "Září",
+      "Říjen",
+      "Listopad",
+      "Prosinec"
+    ],
+    "selectDate": "Vyberte datum",
+    "title": "Kalendář",
+    "today": "Dnes",
+    "week": "Týden",
+    "weekDays": ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"]
+  },
+  "dataTable": {
+    "actions": "Akce",
+    "clearFilters": "Zrušit filtry",
+    "collapseRow": "Sbalit řádek",
+    "expandRow": "Rozbalit řádek",
+    "noData": "Žádná data",
+    "search": "Hledat",
+    "selectedItemsGenitive": "Vybráno {0} položek",
+    "selectedItemsPlural": "Vybrány {0} položky",
+    "selectedItemsSingular": "Vybrána 1 položka"
+  },
+  "errors": {
+    "fetchingData": "Při načítání dat došlo k chybě"
+  },
+  "fileUpload": {
+    "maxFileSizeExceeded": "Maximální velikost souboru {0} MB byla překročena.",
+    "upload": "Nahrát",
+    "uploadFailed": "Nahrávání se nezdařilo.",
+    "uploading": "Nahrávám..."
+  },
+  "form": {
+    "cancel": "Zrušit",
+    "createError": "Při vytváření záznamu došlo k chybě",
+    "createSuccess": "Záznam byl úspěšně vytvořen",
+    "save": "Uložit",
+    "submit": "Odeslat",
+    "updateError": "Při aktualizaci záznamu došlo k chybě",
+    "updateSuccess": "Záznam byl úspěšně aktualizován"
+  },
+  "home": {
+    "title": "Domů"
+  },
+  "more": "více",
+  "notFound": {
+    "backToHome": "Zpět na domovskou stránku",
+    "description": "Omlouváme se, ale stránka, kterou hledáte, neexistuje.",
+    "title": "Stránka nenalezena"
+  },
+  "user": {
+    "confirmPassword": "Potvrďte heslo",
+    "email": "E-mail",
+    "password": "Heslo",
+    "role": "Role",
+    "title": "Uživatel"
+  },
+  "userRole": {
+    "ADMIN": "Admin",
+    "USER": "Uživatel"
+  },
+  "users": {
+    "title": "Uživatelé"
+  }
+}
