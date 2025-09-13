@@ -1,0 +1,45 @@
+:root {
+  --drawer-width: 240px;
+  --drawer-collapsed-width: 64px;
+}
+
+.drawer {
+  width: var(--drawer-width);
+}
+
+.drawer-collapsed {
+  width: var(--drawer-collapsed-width);
+}
+
+.drawer ~ .navbar,
+.drawer ~ main {
+  transition:
+    margin-left 0.3s ease,
+    width 0.3s ease;
+}
+
+.drawer.drawer-open ~ .navbar,
+.drawer.drawer-open ~ main {
+  margin-left: var(--drawer-width);
+  width: calc(100% - var(--drawer-width));
+}
+
+.drawer.drawer-collapsed ~ .navbar,
+.drawer.drawer-collapsed ~ main {
+  margin-left: var(--drawer-collapsed-width);
+  width: calc(100% - var(--drawer-collapsed-width));
+}
+
+.drawer.drawer-closed ~ .navbar,
+.drawer.drawer-closed ~ main {
+  margin-left: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .drawer ~ .navbar,
+  .drawer ~ main {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
