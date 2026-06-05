@@ -1,13 +1,22 @@
 import { useNavigate } from 'react-router';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createGame, type GameInput } from '../api/client';
 import { GameForm } from '../components/GameForm';
 
 export function AddGamePage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createGame,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['games'] });
+      navigate('/games');
+    },
+  });
 
   async function handleSubmit(game: GameInput) {
-    await createGame(game);
-    navigate('/games');
+    await mutation.mutateAsync(game);
   }
 
   return (

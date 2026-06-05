@@ -25,7 +25,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "changed_2bca41a9@example.com",
+                     *       "email": "changed_1743fb2c@example.com",
                      *       "password": "password123"
                      *     }
                      */
@@ -241,7 +241,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "new_9cd6b28c@example.com",
+                     *       "email": "new_cfb35166@example.com",
                      *       "password": "password123",
                      *       "password-confirm": "password123"
                      *     }
@@ -325,31 +325,31 @@ export interface paths {
                         /**
                          * @example [
                          *       {
-                         *         "id": 19,
-                         *         "condition": null,
-                         *         "created_at": "2026-06-05T10:49:12.267Z",
+                         *         "id": 73,
+                         *         "condition": "Good",
+                         *         "created_at": "2026-06-05T15:19:07.629Z",
                          *         "developer": "Nintendo",
                          *         "genre": "Action-adventure",
-                         *         "notes": null,
+                         *         "notes": "Boxed copy",
                          *         "platform": "NES",
-                         *         "publisher": null,
-                         *         "region": null,
+                         *         "publisher": "Nintendo",
+                         *         "region": "NTSC",
                          *         "title": "The Legend of Zelda",
-                         *         "updated_at": "2026-06-05T10:49:12.267Z",
+                         *         "updated_at": "2026-06-05T15:19:07.629Z",
                          *         "year": 1986
                          *       }
                          *     ]
                          */
                         "application/json": {
                             id: number;
-                            condition: unknown;
+                            condition: string | null;
                             created_at: string;
                             developer: string;
                             genre: string;
-                            notes: unknown;
+                            notes: string | null;
                             platform: string;
-                            publisher: unknown;
-                            region: unknown;
+                            publisher: string | null;
+                            region: string | null;
                             title: string;
                             updated_at: string;
                             year: number;
@@ -392,7 +392,11 @@ export interface paths {
                      *         "platform": "NES",
                      *         "year": 1986,
                      *         "genre": "Action-adventure",
-                     *         "developer": "Nintendo"
+                     *         "developer": "Nintendo",
+                     *         "publisher": "Nintendo",
+                     *         "region": "NTSC",
+                     *         "condition": "Good",
+                     *         "notes": "Boxed copy"
                      *       }
                      *     }
                      */
@@ -403,6 +407,10 @@ export interface paths {
                             year: number;
                             genre: string;
                             developer: string;
+                            publisher?: string;
+                            region?: string;
+                            condition?: string;
+                            notes?: string;
                         };
                     };
                 };
@@ -416,30 +424,30 @@ export interface paths {
                     content: {
                         /**
                          * @example {
-                         *       "id": 21,
-                         *       "condition": null,
-                         *       "created_at": "2026-06-05T10:49:12.288Z",
+                         *       "id": 75,
+                         *       "condition": "Good",
+                         *       "created_at": "2026-06-05T15:19:07.651Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
-                         *       "notes": null,
+                         *       "notes": "Boxed copy",
                          *       "platform": "NES",
-                         *       "publisher": null,
-                         *       "region": null,
+                         *       "publisher": "Nintendo",
+                         *       "region": "NTSC",
                          *       "title": "The Legend of Zelda",
-                         *       "updated_at": "2026-06-05T10:49:12.288Z",
+                         *       "updated_at": "2026-06-05T15:19:07.651Z",
                          *       "year": 1986
                          *     }
                          */
                         "application/json": {
                             id: number;
-                            condition: unknown;
+                            condition: string | null;
                             created_at: string;
                             developer: string;
                             genre: string;
-                            notes: unknown;
+                            notes: string | null;
                             platform: string;
-                            publisher: unknown;
-                            region: unknown;
+                            publisher: string | null;
+                            region: string | null;
                             title: string;
                             updated_at: string;
                             year: number;
@@ -520,30 +528,30 @@ export interface paths {
                     content: {
                         /**
                          * @example {
-                         *       "id": 20,
-                         *       "condition": null,
-                         *       "created_at": "2026-06-05T10:49:12.274Z",
+                         *       "id": 74,
+                         *       "condition": "Good",
+                         *       "created_at": "2026-06-05T15:19:07.637Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
-                         *       "notes": null,
+                         *       "notes": "Boxed copy",
                          *       "platform": "NES",
-                         *       "publisher": null,
-                         *       "region": null,
+                         *       "publisher": "Nintendo",
+                         *       "region": "NTSC",
                          *       "title": "The Legend of Zelda",
-                         *       "updated_at": "2026-06-05T10:49:12.274Z",
+                         *       "updated_at": "2026-06-05T15:19:07.637Z",
                          *       "year": 1986
                          *     }
                          */
                         "application/json": {
                             id: number;
-                            condition: unknown;
+                            condition: string | null;
                             created_at: string;
                             developer: string;
                             genre: string;
-                            notes: unknown;
+                            notes: string | null;
                             platform: string;
-                            publisher: unknown;
-                            region: unknown;
+                            publisher: string | null;
+                            region: string | null;
                             title: string;
                             updated_at: string;
                             year: number;
@@ -658,13 +666,29 @@ export interface paths {
                     /**
                      * @example {
                      *       "game": {
-                     *         "title": "Zelda II"
+                     *         "title": "Zelda II",
+                     *         "platform": "NES",
+                     *         "year": 1986,
+                     *         "genre": "Action-adventure",
+                     *         "developer": "Nintendo",
+                     *         "publisher": "Nintendo",
+                     *         "region": "NTSC",
+                     *         "condition": "Good",
+                     *         "notes": "Boxed copy"
                      *       }
                      *     }
                      */
                     "application/json": {
                         game: {
                             title: string;
+                            platform?: string;
+                            year?: number;
+                            genre?: string;
+                            developer?: string;
+                            publisher?: string;
+                            region?: string;
+                            condition?: string;
+                            notes?: string;
                         };
                     };
                 };
@@ -680,30 +704,30 @@ export interface paths {
                          * @example {
                          *       "title": "Zelda II",
                          *       "year": 1986,
-                         *       "id": 22,
-                         *       "condition": null,
-                         *       "created_at": "2026-06-05T10:49:12.295Z",
+                         *       "id": 76,
+                         *       "condition": "Good",
+                         *       "created_at": "2026-06-05T15:19:07.657Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
-                         *       "notes": null,
+                         *       "notes": "Boxed copy",
                          *       "platform": "NES",
-                         *       "publisher": null,
-                         *       "region": null,
-                         *       "updated_at": "2026-06-05T10:49:12.300Z"
+                         *       "publisher": "Nintendo",
+                         *       "region": "NTSC",
+                         *       "updated_at": "2026-06-05T15:19:07.661Z"
                          *     }
                          */
                         "application/json": {
                             title: string;
                             year: number;
                             id: number;
-                            condition: unknown;
+                            condition: string | null;
                             created_at: string;
                             developer: string;
                             genre: string;
-                            notes: unknown;
+                            notes: string | null;
                             platform: string;
-                            publisher: unknown;
-                            region: unknown;
+                            publisher: string | null;
+                            region: string | null;
                             updated_at: string;
                         };
                     };
@@ -787,7 +811,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "user_68bb76a1@example.com",
+                     *       "email": "user_f1fa8a62@example.com",
                      *       "password": "password123"
                      *     }
                      */
@@ -912,7 +936,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "90_FYh31gr9ZZQm3VB-HIYwz5aMX2UEfEFnwqxmAKcurks",
+                     *       "key": "268_58xC0Omdu4XrUmj_LmQF8BLCv8rhR7JAuWEe5wfoofo",
                      *       "password": "newpassword456",
                      *       "password-confirm": "newpassword456"
                      *     }
@@ -986,7 +1010,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "user_15b47472@example.com"
+                     *       "email": "user_b261355f@example.com"
                      *     }
                      */
                     "application/json": {
@@ -1061,7 +1085,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "91_n8fmJccdwefV6dwQHCEcsIw-Vmx0nJ87263GAkwDZDo"
+                     *       "key": "269_3axdhG00xLlDhq8W33j3GE9Ydr4I_idvIseKQuhGpGA"
                      *     }
                      */
                     "application/json": {
@@ -1131,7 +1155,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "unverified_8e780c11@example.com"
+                     *       "email": "unverified_888af56e@example.com"
                      *     }
                      */
                     "application/json": {
@@ -1201,7 +1225,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "95_3v8_qqNpCTupe495Yo8jLD0-4PR7CpBB_nHKysYNfE4"
+                     *       "key": "273_hyu-z0jEZpR0Ja4c5k1qXR1_YX9qHumthKNDkJ8rky0"
                      *     }
                      */
                     "application/json": {

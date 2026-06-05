@@ -1,32 +1,27 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { listGames, deleteGame, type Game } from '../api/client';
 
 export function GamesPage() {
-  const [games, setGames] = useState<Game[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
+  const { data: games = [], isLoading, error } = useQuery({
+    queryKey: ['games'],
+    queryFn: listGames,
+  });
 
-  useEffect(() => {
-    let cancelled = false;
-    listGames()
-      .then((data) => { if (!cancelled) setGames(data); })
-      .catch(() => { if (!cancelled) setError('Failed to load games.'); })
-      .finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
-  }, []);
+  const deleteMutation = useMutation({
+    mutationFn: deleteGame,
+    onSuccess: (_, id) => {
+      queryClient.setQueryData<Game[]>(['games'], (prev) => prev?.filter((g) => g.id !== id));
+    },
+  });
 
-  async function handleDelete(id: number, title: string) {
+  function handleDelete(id: number, title: string) {
     if (!confirm(`Delete "${title}"?`)) return;
-    try {
-      await deleteGame(id);
-      setGames((prev) => prev.filter((g) => g.id !== id));
-    } catch {
-      alert('Failed to delete game.');
-    }
+    deleteMutation.mutate(id);
   }
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
         <div className="text-slate-400">Loading…</div>
@@ -48,7 +43,7 @@ export function GamesPage() {
 
       {error && (
         <div className="rounded-lg bg-red-900/40 border border-red-700 px-4 py-3 text-sm text-red-300 mb-6">
-          {error}
+          Failed to load games.
         </div>
       )}
 

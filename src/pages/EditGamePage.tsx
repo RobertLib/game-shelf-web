@@ -1,29 +1,32 @@
-import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { getGame, updateGame, type Game, type GameInput } from '../api/client';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getGame, updateGame, type GameInput } from '../api/client';
 import { GameForm } from '../components/GameForm';
 
 export function EditGamePage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [game, setGame] = useState<Game | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (!id) return;
-    getGame(Number(id))
-      .then(setGame)
-      .catch(() => setError('Game not found.'))
-      .finally(() => setLoading(false));
-  }, [id]);
+  const { data: game, isLoading, error } = useQuery({
+    queryKey: ['games', Number(id)],
+    queryFn: () => getGame(Number(id)),
+    enabled: !!id,
+  });
+
+  const mutation = useMutation({
+    mutationFn: (gameInput: GameInput) => updateGame(Number(id), gameInput),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['games'] });
+      navigate('/games');
+    },
+  });
 
   async function handleSubmit(gameInput: GameInput) {
-    await updateGame(Number(id), gameInput);
-    navigate('/games');
+    await mutation.mutateAsync(gameInput);
   }
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
         <div className="text-slate-400">Loading…</div>
@@ -34,7 +37,7 @@ export function EditGamePage() {
   if (error || !game) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <p className="text-red-400">{error ?? 'Game not found.'}</p>
+        <p className="text-red-400">Game not found.</p>
       </div>
     );
   }

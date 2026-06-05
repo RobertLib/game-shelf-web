@@ -18,25 +18,8 @@ type ReqBody<P extends keyof paths, M extends keyof paths[P]> =
 
 // ── Domain types derived from the schema ──────────────────────────────────────
 
-// The generated schema marks nullable fields as `unknown` — narrow them here.
-type RawGame = OkBody<'/games', 'get'> extends (infer G)[] ? G : never;
-
-export type Game = Omit<RawGame, 'condition' | 'notes' | 'publisher' | 'region'> & {
-  condition: string | null;
-  notes: string | null;
-  publisher: string | null;
-  region: string | null;
-};
-
-// Required fields come from the schema; optional extras (publisher, region, …) are not
-// in the generated POST schema because the spec example omits them.
-type SchemaGameInput = NonNullable<ReqBody<'/games', 'post'>>['game'];
-export type GameInput = SchemaGameInput & {
-  publisher?: string;
-  region?: string;
-  condition?: string;
-  notes?: string;
-};
+export type Game = OkBody<'/games', 'get'> extends (infer G)[] ? G : never;
+export type GameInput = NonNullable<ReqBody<'/games', 'post'>>['game'];
 
 // ── Error handling ────────────────────────────────────────────────────────────
 
