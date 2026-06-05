@@ -156,6 +156,27 @@ export async function resetPassword(
   });
 }
 
+export async function verifyAccount(
+  key: ReqBody<"/verify-account", "post">["key"],
+) {
+  return request<OkBody<"/verify-account", "post">>("/verify-account", {
+    method: "POST",
+    body: JSON.stringify({ key }),
+  });
+}
+
+export async function verifyAccountResend(
+  email: ReqBody<"/verify-account-resend", "post">["email"],
+) {
+  return request<OkBody<"/verify-account-resend", "post">>(
+    "/verify-account-resend",
+    {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    },
+  );
+}
+
 // ── Games ─────────────────────────────────────────────────────────────────────
 
 export async function listGames(): Promise<Game[]> {

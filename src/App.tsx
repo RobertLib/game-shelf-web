@@ -7,6 +7,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
+import { VerifyAccountPage } from "./pages/VerifyAccountPage";
 import { GamesPage } from "./pages/GamesPage";
 import { AddGamePage } from "./pages/AddGamePage";
 import { EditGamePage } from "./pages/EditGamePage";
@@ -30,6 +31,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/verify-account" element={<VerifyAccountPage />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/games" element={<GamesPage />} />
               <Route path="/games/new" element={<AddGamePage />} />
