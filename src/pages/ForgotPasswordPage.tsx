@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Link } from 'react-router';
-import { resetPasswordRequest, extractErrorMessage } from '../api/client';
+import { useState } from "react";
+import { Link } from "react-router";
+import { resetPasswordRequest, extractErrorMessage } from "../api/client";
 
 const inputClass =
-  'w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent';
+  "w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent";
 
 export function ForgotPasswordPage() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -26,27 +26,31 @@ export function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-65px)] flex items-center justify-center px-4">
+    <div className="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-slate-100 mb-2 text-center">Reset password</h1>
-        <p className="text-sm text-slate-400 text-center mb-6">
+        <h1 className="mb-2 text-center text-2xl font-bold text-slate-100">
+          Reset password
+        </h1>
+        <p className="mb-6 text-center text-sm text-slate-400">
           Enter your email and we'll send you a reset link.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="rounded-lg bg-red-900/40 border border-red-700 px-4 py-3 text-sm text-red-300">
+            <div className="rounded-lg border border-red-700 bg-red-900/40 px-4 py-3 text-sm text-red-300">
               {error}
             </div>
           )}
           {success && (
-            <div className="rounded-lg bg-green-900/40 border border-green-700 px-4 py-3 text-sm text-green-300">
+            <div className="rounded-lg border border-green-700 bg-green-900/40 px-4 py-3 text-sm text-green-300">
               {success}
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">Email</label>
+            <label className="mb-1 block text-sm font-medium text-slate-300">
+              Email
+            </label>
             <input
               type="email"
               value={email}
@@ -61,9 +65,9 @@ export function ForgotPasswordPage() {
           <button
             type="submit"
             disabled={loading || !!success}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-lg px-4 py-2 font-medium transition-colors"
+            className="w-full rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white transition-colors hover:bg-indigo-500 disabled:opacity-50"
           >
-            {loading ? 'Sending…' : 'Send reset link'}
+            {loading ? "Sending…" : "Send reset link"}
           </button>
         </form>
 

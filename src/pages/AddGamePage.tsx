@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createGame, type GameInput } from '../api/client';
-import { GameForm } from '../components/GameForm';
+import { useNavigate } from "react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createGame, type GameInput } from "../api/client";
+import { GameForm } from "../components/GameForm";
 
 export function AddGamePage() {
   const navigate = useNavigate();
@@ -10,8 +10,8 @@ export function AddGamePage() {
   const mutation = useMutation({
     mutationFn: createGame,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['games'] });
-      navigate('/games');
+      queryClient.invalidateQueries({ queryKey: ["games"] });
+      navigate("/games");
     },
   });
 
@@ -20,8 +20,8 @@ export function AddGamePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-slate-100 mb-6">Add Game</h1>
+    <div className="mx-auto max-w-2xl px-4 py-8">
+      <h1 className="mb-6 text-2xl font-bold text-slate-100">Add Game</h1>
       <GameForm onSubmit={handleSubmit} submitLabel="Add Game" />
     </div>
   );

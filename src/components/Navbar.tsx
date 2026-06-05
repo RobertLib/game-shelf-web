@@ -1,5 +1,5 @@
-import { Link, useNavigate } from 'react-router';
-import { useAuth } from '../contexts/AuthContext';
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 export function Navbar() {
   const { isAuthenticated, logout } = useAuth();
@@ -7,31 +7,34 @@ export function Navbar() {
 
   async function handleLogout() {
     await logout();
-    navigate('/login');
+    navigate("/login");
   }
 
   return (
-    <nav className="bg-slate-900 border-b border-slate-800 px-6 py-4 flex items-center justify-between">
-      <Link to="/games" className="text-xl font-bold text-indigo-400 tracking-tight">
+    <nav className="flex items-center justify-between border-b border-slate-800 bg-slate-900 px-6 py-4">
+      <Link
+        to="/games"
+        className="text-xl font-bold tracking-tight text-indigo-400"
+      >
         Game Shelf
       </Link>
       {isAuthenticated && (
         <div className="flex items-center gap-6">
           <Link
             to="/games"
-            className="text-sm text-slate-300 hover:text-white transition-colors"
+            className="text-sm text-slate-300 transition-colors hover:text-white"
           >
             My Collection
           </Link>
           <Link
             to="/games/new"
-            className="text-sm bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-md transition-colors"
+            className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm text-white transition-colors hover:bg-indigo-500"
           >
             + Add Game
           </Link>
           <button
             onClick={handleLogout}
-            className="text-sm text-slate-400 hover:text-white transition-colors"
+            className="text-sm text-slate-400 transition-colors hover:text-white"
           >
             Logout
           </button>
