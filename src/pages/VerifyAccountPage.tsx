@@ -51,7 +51,7 @@ export function VerifyAccountPage() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
+    <div className="flex min-h-full items-center justify-center px-4">
       <div className="w-full max-w-sm text-center">
         {status === "verifying" && (
           <p className="text-slate-400">Verifying your account…</p>

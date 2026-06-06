@@ -110,7 +110,6 @@ export async function login(
 export async function logout() {
   return request<OkBody<"/logout", "post">>("/logout", {
     method: "POST",
-    body: JSON.stringify({}),
   });
 }
 

@@ -29,7 +29,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
+    <div className="flex min-h-full items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <h1 className="mb-6 text-center text-2xl font-bold text-slate-100">
           Sign in
@@ -43,10 +43,14 @@ export function LoginPage() {
           )}
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-slate-300"
+            >
               Email
             </label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -59,7 +63,10 @@ export function LoginPage() {
 
           <div>
             <div className="mb-1 flex justify-between">
-              <label className="block text-sm font-medium text-slate-300">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-slate-300"
+              >
                 Password
               </label>
               <Link
@@ -70,6 +77,7 @@ export function LoginPage() {
               </Link>
             </div>
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

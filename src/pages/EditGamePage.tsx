@@ -5,6 +5,7 @@ import { GameForm } from "../components/GameForm";
 
 export function EditGamePage() {
   const { id } = useParams<{ id: string }>();
+  const numericId = id ? Number(id) : null;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -13,13 +14,13 @@ export function EditGamePage() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["games", Number(id)],
-    queryFn: () => getGame(Number(id)),
-    enabled: !!id,
+    queryKey: ["games", numericId],
+    queryFn: () => getGame(numericId!),
+    enabled: numericId !== null,
   });
 
   const mutation = useMutation({
-    mutationFn: (gameInput: GameInput) => updateGame(Number(id), gameInput),
+    mutationFn: (gameInput: GameInput) => updateGame(numericId!, gameInput),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["games"] });
       navigate("/games");

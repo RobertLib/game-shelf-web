@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { createAccount, extractErrorMessage } from "../api/client";
 
@@ -13,6 +13,13 @@ export function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
+
+  useEffect(() => {
+    if (!redirecting) return;
+    const timer = setTimeout(() => navigate("/login"), 3000);
+    return () => clearTimeout(timer);
+  }, [redirecting, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -21,7 +28,7 @@ export function RegisterPage() {
     try {
       const result = await createAccount(email, password, passwordConfirm);
       setSuccess(result.data.success);
-      setTimeout(() => navigate("/login"), 3000);
+      setRedirecting(true);
     } catch (err) {
       setError(extractErrorMessage(err));
     } finally {
@@ -30,7 +37,7 @@ export function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
+    <div className="flex min-h-full items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <h1 className="mb-6 text-center text-2xl font-bold text-slate-100">
           Create account
@@ -49,10 +56,14 @@ export function RegisterPage() {
           )}
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-slate-300"
+            >
               Email
             </label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -64,10 +75,14 @@ export function RegisterPage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
+            <label
+              htmlFor="password"
+              className="mb-1 block text-sm font-medium text-slate-300"
+            >
               Password
             </label>
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -78,10 +93,14 @@ export function RegisterPage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
+            <label
+              htmlFor="password-confirm"
+              className="mb-1 block text-sm font-medium text-slate-300"
+            >
               Confirm password
             </label>
             <input
+              id="password-confirm"
               type="password"
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}

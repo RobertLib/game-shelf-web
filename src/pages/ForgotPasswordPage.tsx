@@ -26,7 +26,7 @@ export function ForgotPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
+    <div className="flex min-h-full items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <h1 className="mb-2 text-center text-2xl font-bold text-slate-100">
           Reset password
@@ -48,10 +48,14 @@ export function ForgotPasswordPage() {
           )}
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-slate-300"
+            >
               Email
             </label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

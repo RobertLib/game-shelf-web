@@ -24,21 +24,23 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <div className="min-h-screen bg-slate-950 text-slate-100">
+        <div className="grid min-h-screen grid-rows-[auto_1fr] bg-slate-950 text-slate-100">
           <Navbar />
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route path="/verify-account" element={<VerifyAccountPage />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/games" element={<GamesPage />} />
-              <Route path="/games/new" element={<AddGamePage />} />
-              <Route path="/games/:id/edit" element={<EditGamePage />} />
-            </Route>
-            <Route path="*" element={<Navigate to="/games" replace />} />
-          </Routes>
+          <main>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
+              <Route path="/verify-account" element={<VerifyAccountPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/games" element={<GamesPage />} />
+                <Route path="/games/new" element={<AddGamePage />} />
+                <Route path="/games/:id/edit" element={<EditGamePage />} />
+              </Route>
+              <Route path="*" element={<Navigate to="/games" replace />} />
+            </Routes>
+          </main>
         </div>
       </AuthProvider>
     </QueryClientProvider>

@@ -57,8 +57,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <label className={labelClass}>Title *</label>
+          <label htmlFor="title" className={labelClass}>
+            Title *
+          </label>
           <input
+            id="title"
             name="title"
             value={form.title}
             onChange={handleChange}
@@ -68,8 +71,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           />
         </div>
         <div>
-          <label className={labelClass}>Platform *</label>
+          <label htmlFor="platform" className={labelClass}>
+            Platform *
+          </label>
           <input
+            id="platform"
             name="platform"
             value={form.platform}
             onChange={handleChange}
@@ -79,8 +85,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           />
         </div>
         <div>
-          <label className={labelClass}>Year *</label>
+          <label htmlFor="year" className={labelClass}>
+            Year *
+          </label>
           <input
+            id="year"
             name="year"
             type="number"
             value={form.year}
@@ -92,8 +101,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           />
         </div>
         <div>
-          <label className={labelClass}>Genre *</label>
+          <label htmlFor="genre" className={labelClass}>
+            Genre *
+          </label>
           <input
+            id="genre"
             name="genre"
             value={form.genre}
             onChange={handleChange}
@@ -103,8 +115,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           />
         </div>
         <div>
-          <label className={labelClass}>Developer *</label>
+          <label htmlFor="developer" className={labelClass}>
+            Developer *
+          </label>
           <input
+            id="developer"
             name="developer"
             value={form.developer}
             onChange={handleChange}
@@ -114,8 +129,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           />
         </div>
         <div>
-          <label className={labelClass}>Publisher</label>
+          <label htmlFor="publisher" className={labelClass}>
+            Publisher
+          </label>
           <input
+            id="publisher"
             name="publisher"
             value={form.publisher ?? ""}
             onChange={handleChange}
@@ -124,8 +142,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           />
         </div>
         <div>
-          <label className={labelClass}>Region</label>
+          <label htmlFor="region" className={labelClass}>
+            Region
+          </label>
           <input
+            id="region"
             name="region"
             value={form.region ?? ""}
             onChange={handleChange}
@@ -134,8 +155,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           />
         </div>
         <div>
-          <label className={labelClass}>Condition</label>
+          <label htmlFor="condition" className={labelClass}>
+            Condition
+          </label>
           <input
+            id="condition"
             name="condition"
             value={form.condition ?? ""}
             onChange={handleChange}
@@ -146,8 +170,11 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
       </div>
 
       <div>
-        <label className={labelClass}>Notes</label>
+        <label htmlFor="notes" className={labelClass}>
+          Notes
+        </label>
         <textarea
+          id="notes"
           name="notes"
           value={form.notes ?? ""}
           onChange={handleChange}

@@ -31,7 +31,7 @@ export function ResetPasswordPage() {
 
   if (!key) {
     return (
-      <div className="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
+      <div className="flex min-h-full items-center justify-center px-4">
         <div className="text-center">
           <p className="mb-4 text-slate-400">Invalid or missing reset link.</p>
           <Link
@@ -46,7 +46,7 @@ export function ResetPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
+    <div className="flex min-h-full items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <h1 className="mb-6 text-center text-2xl font-bold text-slate-100">
           Set new password
@@ -60,10 +60,14 @@ export function ResetPasswordPage() {
           )}
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
+            <label
+              htmlFor="password"
+              className="mb-1 block text-sm font-medium text-slate-300"
+            >
               New password
             </label>
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -74,10 +78,14 @@ export function ResetPasswordPage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
+            <label
+              htmlFor="password-confirm"
+              className="mb-1 block text-sm font-medium text-slate-300"
+            >
               Confirm new password
             </label>
             <input
+              id="password-confirm"
               type="password"
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
