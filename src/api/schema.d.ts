@@ -25,7 +25,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "changed_f676dd96@example.com",
+                     *       "email": "changed_f069d235@example.com",
                      *       "password": "password123"
                      *     }
                      */
@@ -159,7 +159,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Close account (unauthorized) */
+        /** Close account */
         post: {
             parameters: {
                 query?: never;
@@ -241,7 +241,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "new_44fb2e23@example.com",
+                     *       "email": "new_9a93c1c6@example.com",
                      *       "password": "password123",
                      *       "password-confirm": "password123"
                      *     }
@@ -306,7 +306,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** index */
+        /** List games */
         get: {
             parameters: {
                 query?: {
@@ -320,7 +320,7 @@ export interface paths {
                     page?: number;
                     /** @example NES */
                     platform?: string;
-                    /** @example aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */
+                    /** @example zelda */
                     q?: string;
                     /** @example USA */
                     region?: string;
@@ -333,7 +333,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description truncates excessively long search queries */
+                /** @description sorts games by year descending */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -341,15 +341,40 @@ export interface paths {
                     content: {
                         /**
                          * @example {
-                         *       "data": [],
+                         *       "data": [
+                         *         {
+                         *           "id": 669,
+                         *           "title": "New Game",
+                         *           "platform": "NES",
+                         *           "year": 2020,
+                         *           "genre": "Action-adventure",
+                         *           "developer": "Nintendo",
+                         *           "publisher": "Nintendo",
+                         *           "region": "USA",
+                         *           "condition": "Good",
+                         *           "notes": "Boxed copy"
+                         *         },
+                         *         {
+                         *           "id": 668,
+                         *           "title": "Old Game",
+                         *           "platform": "NES",
+                         *           "year": 1985,
+                         *           "genre": "Action-adventure",
+                         *           "developer": "Nintendo",
+                         *           "publisher": "Nintendo",
+                         *           "region": "USA",
+                         *           "condition": "Good",
+                         *           "notes": "Boxed copy"
+                         *         }
+                         *       ],
                          *       "pagination": {
-                         *         "scaffold_url": "/api/v1/games?q=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&page=__pagy_page__&limit=20",
-                         *         "first_url": "/api/v1/games?q=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&page=1&limit=20",
-                         *         "prev_url": "/api/v1/games?q=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&page=&limit=20",
-                         *         "page_url": "/api/v1/games?q=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&page=1&limit=20",
-                         *         "next_url": "/api/v1/games?q=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&page=&limit=20",
-                         *         "last_url": "/api/v1/games?q=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&page=1&limit=20",
-                         *         "count": 0,
+                         *         "scaffold_url": "/api/v1/games?sort=year&dir=desc&page=__pagy_page__&limit=20",
+                         *         "first_url": "/api/v1/games?sort=year&dir=desc&page=1&limit=20",
+                         *         "prev_url": "/api/v1/games?sort=year&dir=desc&page=&limit=20",
+                         *         "page_url": "/api/v1/games?sort=year&dir=desc&page=1&limit=20",
+                         *         "next_url": "/api/v1/games?sort=year&dir=desc&page=&limit=20",
+                         *         "last_url": "/api/v1/games?sort=year&dir=desc&page=1&limit=20",
+                         *         "count": 2,
                          *         "page": 1,
                          *         "limit": 20,
                          *         "vars": {
@@ -386,13 +411,13 @@ export interface paths {
                          *           "limit_param": "limit",
                          *           "limit_max": 100,
                          *           "limit_extra": true,
-                         *           "count": 0
+                         *           "count": 2
                          *         },
                          *         "pages": 1,
                          *         "last": 1,
-                         *         "in": 0,
-                         *         "from": 0,
-                         *         "to": 0,
+                         *         "in": 2,
+                         *         "from": 1,
+                         *         "to": 2,
                          *         "prev": null,
                          *         "next": null,
                          *         "series": [
@@ -405,7 +430,7 @@ export interface paths {
                             data: {
                                 id: number;
                                 condition: string;
-                                created_at: string;
+                                created_at?: string;
                                 developer: string;
                                 genre: string;
                                 notes: string;
@@ -413,8 +438,8 @@ export interface paths {
                                 publisher: string;
                                 region: string;
                                 title: string;
-                                updated_at: string;
-                                user_id: number;
+                                updated_at?: string;
+                                user_id?: number;
                                 year: number;
                             }[];
                             pagination: {
@@ -505,10 +530,10 @@ export interface paths {
                             year: number;
                             genre: string;
                             developer: string;
-                            publisher: string;
-                            region: string;
-                            condition: string;
-                            notes: string;
+                            publisher?: string;
+                            region?: string;
+                            condition?: string;
+                            notes?: string;
                         };
                     };
                 };
@@ -523,18 +548,18 @@ export interface paths {
                         /**
                          * @example {
                          *       "data": {
-                         *         "id": 227,
-                         *         "condition": "Good",
-                         *         "created_at": "2026-06-06T13:51:58.399Z",
+                         *         "id": 672,
+                         *         "condition": null,
+                         *         "created_at": "2026-06-06T21:09:41.397Z",
                          *         "developer": "Nintendo",
                          *         "genre": "Action-adventure",
-                         *         "notes": "Boxed copy",
+                         *         "notes": null,
                          *         "platform": "NES",
-                         *         "publisher": "Nintendo",
-                         *         "region": "USA",
+                         *         "publisher": null,
+                         *         "region": null,
                          *         "title": "The Legend of Zelda",
-                         *         "updated_at": "2026-06-06T13:51:58.399Z",
-                         *         "user_id": 460,
+                         *         "updated_at": "2026-06-06T21:09:41.397Z",
+                         *         "user_id": 1506,
                          *         "year": 1986
                          *       }
                          *     }
@@ -542,17 +567,17 @@ export interface paths {
                         "application/json": {
                             data: {
                                 id: number;
-                                condition: string;
-                                created_at: string;
+                                condition: string | null;
+                                created_at?: string;
                                 developer: string;
                                 genre: string;
-                                notes: string;
+                                notes: string | null;
                                 platform: string;
-                                publisher: string;
-                                region: string;
+                                publisher: string | null;
+                                region: string | null;
                                 title: string;
-                                updated_at: string;
-                                user_id: number;
+                                updated_at?: string;
+                                user_id?: number;
                                 year: number;
                             };
                         };
@@ -607,30 +632,7 @@ export interface paths {
             };
         };
         delete?: never;
-        /** OPTIONS /api/v1/games */
-        options: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    /** @example {} */
-                    "application/x-www-form-urlencoded": Record<string, never>;
-                };
-            };
-            responses: {
-                /** @description returns CORS headers on preflight request */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
+        options?: never;
         head?: never;
         patch?: never;
         trace?: never;
@@ -664,9 +666,9 @@ export interface paths {
                         /**
                          * @example {
                          *       "data": {
-                         *         "id": 225,
+                         *         "id": 670,
                          *         "condition": "Good",
-                         *         "created_at": "2026-06-06T13:51:58.380Z",
+                         *         "created_at": "2026-06-06T21:09:41.369Z",
                          *         "developer": "Nintendo",
                          *         "genre": "Action-adventure",
                          *         "notes": "Boxed copy",
@@ -674,8 +676,8 @@ export interface paths {
                          *         "publisher": "Nintendo",
                          *         "region": "USA",
                          *         "title": "The Legend of Zelda",
-                         *         "updated_at": "2026-06-06T13:51:58.380Z",
-                         *         "user_id": 456,
+                         *         "updated_at": "2026-06-06T21:09:41.369Z",
+                         *         "user_id": 1502,
                          *         "year": 1986
                          *       }
                          *     }
@@ -684,7 +686,7 @@ export interface paths {
                             data: {
                                 id: number;
                                 condition: string;
-                                created_at: string;
+                                created_at?: string;
                                 developer: string;
                                 genre: string;
                                 notes: string;
@@ -692,8 +694,8 @@ export interface paths {
                                 publisher: string;
                                 region: string;
                                 title: string;
-                                updated_at: string;
-                                user_id: number;
+                                updated_at?: string;
+                                user_id?: number;
                                 year: number;
                             };
                         };
@@ -844,7 +846,7 @@ export interface paths {
                         /**
                          * @example {
                          *       "data": {
-                         *         "user_id": 462,
+                         *         "user_id": 1508,
                          *         "title": "Zelda II",
                          *         "platform": "NES",
                          *         "year": 1986,
@@ -854,15 +856,15 @@ export interface paths {
                          *         "region": "USA",
                          *         "condition": "Good",
                          *         "notes": "Boxed copy",
-                         *         "id": 228,
-                         *         "created_at": "2026-06-06T13:51:58.409Z",
-                         *         "updated_at": "2026-06-06T13:51:58.411Z"
+                         *         "id": 673,
+                         *         "created_at": "2026-06-06T21:09:41.407Z",
+                         *         "updated_at": "2026-06-06T21:09:41.409Z"
                          *       }
                          *     }
                          */
                         "application/json": {
                             data: {
-                                user_id: number;
+                                user_id?: number;
                                 title: string;
                                 platform: string;
                                 year: number;
@@ -873,8 +875,8 @@ export interface paths {
                                 condition: string;
                                 notes: string;
                                 id: number;
-                                created_at: string;
-                                updated_at: string;
+                                created_at?: string;
+                                updated_at?: string;
                             };
                         };
                     };
@@ -958,7 +960,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "user_7290e2e1@example.com",
+                     *       "email": "user_45fc0f13@example.com",
                      *       "password": "password123"
                      *     }
                      */
@@ -1083,7 +1085,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "440_Jn97ZPEaVRe5M-6dvHqsBorUnNtb6ZpQtQF46W5Wukw",
+                     *       "key": "1830_GG4nag9RaD1tQ9fSjXrYiyLvp8XQfVROiHTbUN-j26E",
                      *       "password": "newpassword456",
                      *       "password-confirm": "newpassword456"
                      *     }
@@ -1157,7 +1159,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "user_144107b0@example.com"
+                     *       "email": "user_2b403603@example.com"
                      *     }
                      */
                     "application/json": {
@@ -1211,6 +1213,627 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List users */
+        get: {
+            parameters: {
+                query?: {
+                    /** @example desc */
+                    dir?: string;
+                    /** @example 2 */
+                    limit?: number;
+                    /** @example 1 */
+                    page?: number;
+                    /** @example find_me */
+                    q?: string;
+                    /** @example admin */
+                    role?: string;
+                    /** @example email */
+                    sort?: string;
+                    /** @example verified */
+                    status?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description sorts users by email descending */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "data": [
+                         *         {
+                         *           "id": 1880,
+                         *           "email": "z_regular@example.com",
+                         *           "role": "user",
+                         *           "status": "verified"
+                         *         },
+                         *         {
+                         *           "id": 1879,
+                         *           "email": "a_admin@example.com",
+                         *           "role": "admin",
+                         *           "status": "verified"
+                         *         }
+                         *       ],
+                         *       "pagination": {
+                         *         "scaffold_url": "/api/v1/users?sort=email&dir=desc&page=__pagy_page__&limit=20",
+                         *         "first_url": "/api/v1/users?sort=email&dir=desc&page=1&limit=20",
+                         *         "prev_url": "/api/v1/users?sort=email&dir=desc&page=&limit=20",
+                         *         "page_url": "/api/v1/users?sort=email&dir=desc&page=1&limit=20",
+                         *         "next_url": "/api/v1/users?sort=email&dir=desc&page=&limit=20",
+                         *         "last_url": "/api/v1/users?sort=email&dir=desc&page=1&limit=20",
+                         *         "count": 2,
+                         *         "page": 1,
+                         *         "limit": 20,
+                         *         "vars": {
+                         *           "count_args": [
+                         *             "all"
+                         *           ],
+                         *           "ends": true,
+                         *           "limit": 20,
+                         *           "outset": 0,
+                         *           "page": 1,
+                         *           "page_param": "page",
+                         *           "size": 7,
+                         *           "metadata": [
+                         *             "scaffold_url",
+                         *             "first_url",
+                         *             "prev_url",
+                         *             "page_url",
+                         *             "next_url",
+                         *             "last_url",
+                         *             "count",
+                         *             "page",
+                         *             "limit",
+                         *             "vars",
+                         *             "pages",
+                         *             "last",
+                         *             "in",
+                         *             "from",
+                         *             "to",
+                         *             "prev",
+                         *             "next",
+                         *             "series"
+                         *           ],
+                         *           "steps": false,
+                         *           "limit_param": "limit",
+                         *           "limit_max": 100,
+                         *           "limit_extra": true,
+                         *           "count": 2
+                         *         },
+                         *         "pages": 1,
+                         *         "last": 1,
+                         *         "in": 2,
+                         *         "from": 1,
+                         *         "to": 2,
+                         *         "prev": null,
+                         *         "next": null,
+                         *         "series": [
+                         *           "1"
+                         *         ]
+                         *       }
+                         *     }
+                         */
+                        "application/json": {
+                            data: {
+                                id: number;
+                                email: string;
+                                role: string;
+                                status: string;
+                            }[];
+                            pagination: {
+                                scaffold_url: string;
+                                first_url: string;
+                                prev_url: string;
+                                page_url: string;
+                                next_url: string;
+                                last_url: string;
+                                count: number;
+                                page: number;
+                                limit: number;
+                                vars: {
+                                    count_args: string[];
+                                    ends: boolean;
+                                    limit: number;
+                                    outset: number;
+                                    page: number;
+                                    page_param: string;
+                                    size: number;
+                                    metadata: string[];
+                                    steps: boolean;
+                                    limit_param: string;
+                                    limit_max: number;
+                                    limit_extra: boolean;
+                                    count: number;
+                                };
+                                pages: number;
+                                last: number;
+                                in: number;
+                                from: number;
+                                to: number;
+                                prev: unknown;
+                                next: number | null;
+                                series: string[];
+                            };
+                        };
+                    };
+                };
+                /** @description returns 401 without authentication */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Please login to continue"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 403 for regular user */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Forbidden"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** Create a user */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    /**
+                     * @example {
+                     *       "user": {
+                     *         "email": "admin_78870f77@example.com",
+                     *         "role": "admin",
+                     *         "status": "verified"
+                     *       },
+                     *       "password": "password123"
+                     *     }
+                     */
+                    "application/json": {
+                        user: {
+                            email: string;
+                            role: string;
+                            status: string;
+                        };
+                        password: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description allows admin to create an admin user */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "data": {
+                         *         "id": 1891,
+                         *         "email": "admin_78870f77@example.com",
+                         *         "role": "admin",
+                         *         "status": "verified"
+                         *       }
+                         *     }
+                         */
+                        "application/json": {
+                            data: {
+                                id: number;
+                                email: string;
+                                role: string;
+                                status: string;
+                            };
+                        };
+                    };
+                };
+                /** @description returns 401 without authentication */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Please login to continue"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 403 for regular user */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Forbidden"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 422 for invalid email */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "errors": {
+                         *         "base": [
+                         *           "Invalid parameters"
+                         *         ]
+                         *       }
+                         *     }
+                         */
+                        "application/json": {
+                            errors: {
+                                base: string[];
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a user */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @example 1 */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description allows user to view own profile */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "data": {
+                         *         "id": 1884,
+                         *         "email": "user_63157dc4@example.com",
+                         *         "role": "user",
+                         *         "status": "verified"
+                         *       }
+                         *     }
+                         */
+                        "application/json": {
+                            data: {
+                                id: number;
+                                email: string;
+                                role: string;
+                                status: string;
+                            };
+                        };
+                    };
+                };
+                /** @description returns 401 without authentication */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Please login to continue"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 403 when regular user tries to view another user */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Forbidden"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 404 for non-existent user */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Not found"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        /** Delete a user */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @example 1 */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description allows admin to delete any user */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description returns 401 without authentication */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Please login to continue"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 403 for regular user */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Forbidden"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 404 for non-existent user */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Not found"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        /** Update a user */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @example 1 */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    /**
+                     * @example {
+                     *       "user": {
+                     *         "role": "admin",
+                     *         "email": "updated_7515dafb@example.com"
+                     *       }
+                     *     }
+                     */
+                    "application/json": {
+                        user: {
+                            role?: string;
+                            email?: string;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description prevents regular user from changing own role */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "data": {
+                         *         "id": 1898,
+                         *         "email": "user_2ee63418@example.com",
+                         *         "role": "user",
+                         *         "status": "verified"
+                         *       }
+                         *     }
+                         */
+                        "application/json": {
+                            data: {
+                                id: number;
+                                email: string;
+                                role: string;
+                                status: string;
+                            };
+                        };
+                    };
+                };
+                /** @description prevents regular user from changing own role */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /** @example {} */
+                        "application/json": Record<string, never>;
+                    };
+                };
+                /** @description returns 401 without authentication */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Please login to continue"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 403 when regular user tries to update another user */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Forbidden"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 404 for non-existent user */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "error": "Not found"
+                         *     }
+                         */
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description returns 422 for invalid params */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "errors": {
+                         *         "base": [
+                         *           "Invalid parameters"
+                         *         ]
+                         *       }
+                         *     }
+                         */
+                        "application/json": {
+                            errors: {
+                                base: string[];
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
     "/api/v1/verify-account": {
         parameters: {
             query?: never;
@@ -1232,7 +1855,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "441_rgy-CS1NDovwX88UO8OrM_OXMC_1NeP39wqlECrpOTo"
+                     *       "key": "1831_OPU2veTmdlMTNJygdPreDBWXBjBJKVdMPl_ZGrQGQXs"
                      *     }
                      */
                     "application/json": {
@@ -1302,7 +1925,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "unverified_483b24ee@example.com"
+                     *       "email": "unverified_d319b340@example.com"
                      *     }
                      */
                     "application/json": {
@@ -1372,7 +1995,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "445_aZQmAtdtJM1-S3MaHfeHbKwwgM5se9LkY0GZ8pqcZUI"
+                     *       "key": "1835_icGP9UPnLG8fxS0cu9i9nQQtHoqGS5EkuXNKEMLZN78"
                      *     }
                      */
                     "application/json": {
