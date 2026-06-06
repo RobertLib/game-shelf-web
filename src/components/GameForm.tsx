@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { extractErrorMessage, type GameInput } from "../api/client";
+import { PLATFORMS, REGIONS, CONDITIONS } from "../api/enums";
 
 type Props = {
   initial?: Partial<GameInput>;
@@ -28,7 +29,9 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
   const [loading, setLoading] = useState(false);
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: name === "year" ? Number(value) : value }));
@@ -74,15 +77,23 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           <label htmlFor="platform" className={labelClass}>
             Platform *
           </label>
-          <input
+          <select
             id="platform"
             name="platform"
             value={form.platform}
             onChange={handleChange}
             required
             className={inputClass}
-            placeholder="NES"
-          />
+          >
+            <option value="" disabled>
+              — select a platform —
+            </option>
+            {PLATFORMS.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <label htmlFor="year" className={labelClass}>
@@ -145,27 +156,39 @@ export function GameForm({ initial = {}, onSubmit, submitLabel }: Props) {
           <label htmlFor="region" className={labelClass}>
             Region
           </label>
-          <input
+          <select
             id="region"
             name="region"
             value={form.region ?? ""}
             onChange={handleChange}
             className={inputClass}
-            placeholder="EUR / USA / JPN…"
-          />
+          >
+            <option value="">&mdash; select a region &mdash;</option>
+            {REGIONS.map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <label htmlFor="condition" className={labelClass}>
             Condition
           </label>
-          <input
+          <select
             id="condition"
             name="condition"
             value={form.condition ?? ""}
             onChange={handleChange}
             className={inputClass}
-            placeholder="Mint / Good / Fair…"
-          />
+          >
+            <option value="">&mdash; select a condition &mdash;</option>
+            {CONDITIONS.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
