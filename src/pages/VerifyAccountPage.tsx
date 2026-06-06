@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import {
   verifyAccount,
@@ -25,9 +25,11 @@ export function VerifyAccountPage() {
     "idle" | "sending" | "sent" | "error"
   >("idle");
   const [resendError, setResendError] = useState<string | null>(null);
+  const calledRef = useRef(false);
 
   useEffect(() => {
-    if (!key) return;
+    if (!key || calledRef.current) return;
+    calledRef.current = true;
 
     verifyAccount(key)
       .then(() => setStatus("success"))
