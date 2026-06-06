@@ -9,15 +9,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = useCallback(async (email: string, password: string) => {
     const result = await api.login(email, password);
-    if (result.token) {
-      localStorage.setItem("token", result.token);
-      setToken(result.token);
+    if (!result.token) {
+      throw new Error("Login failed: no token received.");
     }
+    localStorage.setItem("token", result.token);
+    setToken(result.token);
   }, []);
 
   const logout = useCallback(async () => {
     try {
       await api.logout();
+    } catch {
+      // ignore server error — always log out locally
     } finally {
       localStorage.removeItem("token");
       setToken(null);

@@ -67,10 +67,9 @@ async function request<T>(
   options: RequestInit = {},
 ): Promise<{ data: T; headers: Headers }> {
   const token = localStorage.getItem("token");
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-  };
+  const headers: Record<string, string> = {};
   if (token) headers["Authorization"] = `Bearer ${token}`;
+  if (options.body) headers["Content-Type"] = "application/json";
 
   const response = await fetch(`${API_URL}${path}`, {
     ...options,

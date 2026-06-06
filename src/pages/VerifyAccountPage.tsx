@@ -92,15 +92,24 @@ export function VerifyAccountPage() {
                     {resendError}
                   </div>
                 )}
-                <input
-                  type="email"
-                  value={resendEmail}
-                  onChange={(e) => setResendEmail(e.target.value)}
-                  required
-                  placeholder="your@email.com"
-                  autoComplete="email"
-                  className={inputClass}
-                />
+                <div>
+                  <label
+                    htmlFor="resend-email"
+                    className="mb-1 block text-sm font-medium text-slate-300"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="resend-email"
+                    type="email"
+                    value={resendEmail}
+                    onChange={(e) => setResendEmail(e.target.value)}
+                    required
+                    placeholder="your@email.com"
+                    autoComplete="email"
+                    className={inputClass}
+                  />
+                </div>
                 <button
                   type="submit"
                   disabled={resendStatus === "sending"}

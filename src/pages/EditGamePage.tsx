@@ -5,7 +5,7 @@ import { GameForm } from "../components/GameForm";
 
 export function EditGamePage() {
   const { id } = useParams<{ id: string }>();
-  const numericId = id ? Number(id) : null;
+  const numericId = id && !isNaN(Number(id)) ? Number(id) : null;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
