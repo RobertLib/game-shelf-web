@@ -68,15 +68,23 @@ export function GamesPage() {
   );
 
   // Debounce: push q to URL 400ms after user stops typing
-  // Only update when value actually differs from current URL to avoid resetting page on mount
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (searchInput !== (params.q ?? "")) {
-        updateParams({ q: searchInput || undefined });
-      }
+      setSearchParams(
+        (prev) => {
+          const current = paramsFromSearch(prev);
+          if (searchInput === (current.q ?? "")) return prev;
+          return buildSearch({
+            ...current,
+            q: searchInput || undefined,
+            page: 1,
+          });
+        },
+        { replace: true },
+      );
     }, 400);
     return () => clearTimeout(timer);
-  }, [searchInput]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchInput, setSearchParams]);
 
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["games", "list", params],

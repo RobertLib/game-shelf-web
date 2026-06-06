@@ -87,6 +87,10 @@ async function request<T>(
   const data = await response.json();
 
   if (!response.ok) {
+    if (response.status === 401 && token) {
+      localStorage.removeItem("token");
+      window.location.replace("/login");
+    }
     throw { status: response.status, data } satisfies ApiError;
   }
 

@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router";
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./contexts/AuthProvider";
 import { Navbar } from "./components/Navbar";
@@ -12,15 +13,18 @@ import { GamesPage } from "./pages/GamesPage";
 import { AddGamePage } from "./pages/AddGamePage";
 import { EditGamePage } from "./pages/EditGamePage";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000,
-    },
-  },
-});
-
 function App() {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 5 * 60 * 1000,
+          },
+        },
+      }),
+  );
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
