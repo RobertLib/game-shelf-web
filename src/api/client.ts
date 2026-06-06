@@ -181,10 +181,22 @@ export async function verifyAccountResend(
 
 // ── Games ─────────────────────────────────────────────────────────────────────
 
+export type GamesListParams = NonNullable<
+  paths["/games"]["get"]["parameters"]["query"]
+>;
+
 export async function listGames(
-  page = 1,
+  params: GamesListParams = {},
 ): Promise<{ data: Game[]; pagination: PaginationMeta }> {
-  const result = await request<GamesListBody>(`/games?page=${page}`);
+  const qs = new URLSearchParams();
+  if (params.page && params.page > 1) qs.set("page", String(params.page));
+  if (params.q) qs.set("q", params.q);
+  if (params.platform) qs.set("platform", params.platform);
+  if (params.region) qs.set("region", params.region);
+  if (params.condition) qs.set("condition", params.condition);
+  if (params.sort) qs.set("sort", params.sort);
+  if (params.dir) qs.set("dir", params.dir);
+  const result = await request<GamesListBody>(`/games?${qs.toString()}`);
   return result.data as { data: Game[]; pagination: PaginationMeta };
 }
 

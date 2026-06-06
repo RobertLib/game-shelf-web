@@ -25,7 +25,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "changed_36eee9e7@example.com",
+                     *       "email": "changed_0d7340d9@example.com",
                      *       "password": "password123"
                      *     }
                      */
@@ -241,7 +241,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "new_8957bc7f@example.com",
+                     *       "email": "new_f2609516@example.com",
                      *       "password": "password123",
                      *       "password-confirm": "password123"
                      *     }
@@ -310,6 +310,10 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
+                    /** @example Good */
+                    condition?: string;
+                    /** @example desc */
+                    dir?: string;
                     /**
                      * @description Number of items per page
                      * @example 5
@@ -320,6 +324,14 @@ export interface paths {
                      * @example 1
                      */
                     page?: number;
+                    /** @example NES */
+                    platform?: string;
+                    /** @example zelda */
+                    q?: string;
+                    /** @example USA */
+                    region?: string;
+                    /** @example year */
+                    sort?: string;
                 };
                 header?: never;
                 path?: never;
@@ -327,7 +339,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description supports limit parameter */
+                /** @description sorts games by year descending */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -335,23 +347,54 @@ export interface paths {
                     content: {
                         /**
                          * @example {
-                         *       "data": [],
+                         *       "data": [
+                         *         {
+                         *           "id": 300,
+                         *           "condition": "Good",
+                         *           "created_at": "2026-06-06T12:05:02.904Z",
+                         *           "developer": "Nintendo",
+                         *           "genre": "Action-adventure",
+                         *           "notes": "Boxed copy",
+                         *           "platform": "NES",
+                         *           "publisher": "Nintendo",
+                         *           "region": "USA",
+                         *           "title": "New Game",
+                         *           "updated_at": "2026-06-06T12:05:02.904Z",
+                         *           "user_id": 716,
+                         *           "year": 2020
+                         *         },
+                         *         {
+                         *           "id": 299,
+                         *           "condition": "Good",
+                         *           "created_at": "2026-06-06T12:05:02.903Z",
+                         *           "developer": "Nintendo",
+                         *           "genre": "Action-adventure",
+                         *           "notes": "Boxed copy",
+                         *           "platform": "NES",
+                         *           "publisher": "Nintendo",
+                         *           "region": "USA",
+                         *           "title": "Old Game",
+                         *           "updated_at": "2026-06-06T12:05:02.903Z",
+                         *           "user_id": 716,
+                         *           "year": 1985
+                         *         }
+                         *       ],
                          *       "pagination": {
-                         *         "scaffold_url": "/games?page=__pagy_page__&limit=5",
-                         *         "first_url": "/games?page=1&limit=5",
-                         *         "prev_url": "/games?page=&limit=5",
-                         *         "page_url": "/games?page=1&limit=5",
-                         *         "next_url": "/games?page=&limit=5",
-                         *         "last_url": "/games?page=1&limit=5",
-                         *         "count": 0,
+                         *         "scaffold_url": "/games?sort=year&dir=desc&page=__pagy_page__&limit=20",
+                         *         "first_url": "/games?sort=year&dir=desc&page=1&limit=20",
+                         *         "prev_url": "/games?sort=year&dir=desc&page=&limit=20",
+                         *         "page_url": "/games?sort=year&dir=desc&page=1&limit=20",
+                         *         "next_url": "/games?sort=year&dir=desc&page=&limit=20",
+                         *         "last_url": "/games?sort=year&dir=desc&page=1&limit=20",
+                         *         "count": 2,
                          *         "page": 1,
-                         *         "limit": 5,
+                         *         "limit": 20,
                          *         "vars": {
                          *           "count_args": [
                          *             "all"
                          *           ],
                          *           "ends": true,
-                         *           "limit": 5,
+                         *           "limit": 20,
                          *           "outset": 0,
                          *           "page": 1,
                          *           "page_param": "page",
@@ -376,7 +419,7 @@ export interface paths {
                          *             "next",
                          *             "series"
                          *           ],
-                         *           "count": 0,
+                         *           "count": 2,
                          *           "steps": false,
                          *           "limit_param": "limit",
                          *           "limit_max": 100,
@@ -384,9 +427,9 @@ export interface paths {
                          *         },
                          *         "pages": 1,
                          *         "last": 1,
-                         *         "in": 0,
-                         *         "from": 0,
-                         *         "to": 0,
+                         *         "in": 2,
+                         *         "from": 1,
+                         *         "to": 2,
                          *         "prev": null,
                          *         "next": null,
                          *         "series": [
@@ -516,9 +559,9 @@ export interface paths {
                     content: {
                         /**
                          * @example {
-                         *       "id": 185,
+                         *       "id": 303,
                          *       "condition": "Good",
-                         *       "created_at": "2026-06-06T11:39:43.517Z",
+                         *       "created_at": "2026-06-06T12:05:02.928Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
                          *       "notes": "Boxed copy",
@@ -526,9 +569,9 @@ export interface paths {
                          *       "publisher": "Nintendo",
                          *       "region": "USA",
                          *       "title": "The Legend of Zelda",
-                         *       "updated_at": "2026-06-06T11:39:43.517Z",
+                         *       "updated_at": "2026-06-06T12:05:02.928Z",
                          *       "year": 1986,
-                         *       "user_id": 505
+                         *       "user_id": 721
                          *     }
                          */
                         "application/json": {
@@ -630,9 +673,9 @@ export interface paths {
                     content: {
                         /**
                          * @example {
-                         *       "id": 183,
+                         *       "id": 301,
                          *       "condition": "Good",
-                         *       "created_at": "2026-06-06T11:39:43.497Z",
+                         *       "created_at": "2026-06-06T12:05:02.909Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
                          *       "notes": "Boxed copy",
@@ -640,9 +683,9 @@ export interface paths {
                          *       "publisher": "Nintendo",
                          *       "region": "USA",
                          *       "title": "The Legend of Zelda",
-                         *       "updated_at": "2026-06-06T11:39:43.497Z",
+                         *       "updated_at": "2026-06-06T12:05:02.909Z",
                          *       "year": 1986,
-                         *       "user_id": 501
+                         *       "user_id": 717
                          *     }
                          */
                         "application/json": {
@@ -808,17 +851,17 @@ export interface paths {
                          * @example {
                          *       "title": "Zelda II",
                          *       "year": 1986,
-                         *       "id": 186,
+                         *       "id": 304,
                          *       "condition": "Good",
-                         *       "created_at": "2026-06-06T11:39:43.528Z",
+                         *       "created_at": "2026-06-06T12:05:02.938Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
                          *       "notes": "Boxed copy",
                          *       "platform": "NES",
                          *       "publisher": "Nintendo",
                          *       "region": "USA",
-                         *       "updated_at": "2026-06-06T11:39:43.530Z",
-                         *       "user_id": 507
+                         *       "updated_at": "2026-06-06T12:05:02.940Z",
+                         *       "user_id": 723
                          *     }
                          */
                         "application/json": {
@@ -917,7 +960,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "user_2bfde5ea@example.com",
+                     *       "email": "user_5ffdc888@example.com",
                      *       "password": "password123"
                      *     }
                      */
@@ -1042,7 +1085,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "491_tPaSNwJUqKcIVARRbVRJItZIHu6Yu_CIKsgwVAva6LY",
+                     *       "key": "701_QA2LJa9cDf4SsbJHvp_oSzYqD-P1oqx_Typd4PhbdFo",
                      *       "password": "newpassword456",
                      *       "password-confirm": "newpassword456"
                      *     }
@@ -1116,7 +1159,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "user_c2fc445c@example.com"
+                     *       "email": "user_f4081b54@example.com"
                      *     }
                      */
                     "application/json": {
@@ -1191,7 +1234,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "492_8AG8sEeYRq8FljE_myiWS01bm8d57vvhLwUDiFXs3GA"
+                     *       "key": "702_y0nQBY4yItqARYIm6ple6lPHKSb5D_btK5mlf5b5cXs"
                      *     }
                      */
                     "application/json": {
@@ -1261,7 +1304,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "unverified_ce96457f@example.com"
+                     *       "email": "unverified_56a9011c@example.com"
                      *     }
                      */
                     "application/json": {
@@ -1331,7 +1374,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "496_rHdxvXdnH46R07-JNWLRrAZm-GQcVMb3Zf_8TuLrljw"
+                     *       "key": "706_wGxEx4HXqHyfm4kowwIfAHdZpcZPSZass-SW7yN81pw"
                      *     }
                      */
                     "application/json": {
