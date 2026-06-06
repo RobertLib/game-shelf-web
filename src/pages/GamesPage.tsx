@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -6,26 +6,30 @@ import {
   deleteGame,
   extractErrorMessage,
   type Game,
+  type PaginationMeta,
 } from "../api/client";
 
 export function GamesPage() {
   const queryClient = useQueryClient();
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = Number(searchParams.get("page") ?? "1");
 
-  const {
-    data: games = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["games"],
-    queryFn: listGames,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["games", "list", page],
+    queryFn: () => listGames(page),
   });
+
+  const games: Game[] = data?.data ?? [];
+  const pagination: PaginationMeta | undefined = data?.pagination;
 
   const deleteMutation = useMutation({
     mutationFn: deleteGame,
     onSuccess: (_, id) => {
-      queryClient.setQueryData<Game[]>(["games"], (prev) =>
-        prev?.filter((g) => g.id !== id),
+      queryClient.setQueryData<{ data: Game[]; pagination: PaginationMeta }>(
+        ["games", "list", page],
+        (prev) =>
+          prev ? { ...prev, data: prev.data.filter((g) => g.id !== id) } : prev,
       );
       setDeleteError(null);
     },
@@ -85,18 +89,43 @@ export function GamesPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {games.map((game) => (
-            <GameCard
-              key={game.id}
-              game={game}
-              onDelete={handleDelete}
-              isDeleting={
-                deleteMutation.isPending && deleteMutation.variables === game.id
-              }
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {games.map((game) => (
+              <GameCard
+                key={game.id}
+                game={game}
+                onDelete={handleDelete}
+                isDeleting={
+                  deleteMutation.isPending &&
+                  deleteMutation.variables === game.id
+                }
+              />
+            ))}
+          </div>
+
+          {pagination && pagination.pages > 1 && (
+            <div className="mt-8 flex items-center justify-center gap-2">
+              <button
+                onClick={() => setSearchParams({ page: String(page - 1) })}
+                disabled={page === 1}
+                className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                ← Prev
+              </button>
+              <span className="text-sm text-slate-400">
+                {page} / {pagination.pages}
+              </span>
+              <button
+                onClick={() => setSearchParams({ page: String(page + 1) })}
+                disabled={page === pagination.pages}
+                className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Next →
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

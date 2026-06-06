@@ -25,7 +25,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "changed_1743fb2c@example.com",
+                     *       "email": "changed_36eee9e7@example.com",
                      *       "password": "password123"
                      *     }
                      */
@@ -241,7 +241,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "new_cfb35166@example.com",
+                     *       "email": "new_8957bc7f@example.com",
                      *       "password": "password123",
                      *       "password-confirm": "password123"
                      *     }
@@ -306,54 +306,146 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** List games (unauthorized) */
+        /** List games */
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    /**
+                     * @description Number of items per page
+                     * @example 5
+                     */
+                    limit?: number;
+                    /**
+                     * @description Page number
+                     * @example 1
+                     */
+                    page?: number;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description returns a list of games */
+                /** @description supports limit parameter */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
                         /**
-                         * @example [
-                         *       {
-                         *         "id": 73,
-                         *         "condition": "Good",
-                         *         "created_at": "2026-06-05T15:19:07.629Z",
-                         *         "developer": "Nintendo",
-                         *         "genre": "Action-adventure",
-                         *         "notes": "Boxed copy",
-                         *         "platform": "NES",
-                         *         "publisher": "Nintendo",
-                         *         "region": "NTSC",
-                         *         "title": "The Legend of Zelda",
-                         *         "updated_at": "2026-06-05T15:19:07.629Z",
-                         *         "year": 1986
+                         * @example {
+                         *       "data": [],
+                         *       "pagination": {
+                         *         "scaffold_url": "/games?page=__pagy_page__&limit=5",
+                         *         "first_url": "/games?page=1&limit=5",
+                         *         "prev_url": "/games?page=&limit=5",
+                         *         "page_url": "/games?page=1&limit=5",
+                         *         "next_url": "/games?page=&limit=5",
+                         *         "last_url": "/games?page=1&limit=5",
+                         *         "count": 0,
+                         *         "page": 1,
+                         *         "limit": 5,
+                         *         "vars": {
+                         *           "count_args": [
+                         *             "all"
+                         *           ],
+                         *           "ends": true,
+                         *           "limit": 5,
+                         *           "outset": 0,
+                         *           "page": 1,
+                         *           "page_param": "page",
+                         *           "size": 7,
+                         *           "metadata": [
+                         *             "scaffold_url",
+                         *             "first_url",
+                         *             "prev_url",
+                         *             "page_url",
+                         *             "next_url",
+                         *             "last_url",
+                         *             "count",
+                         *             "page",
+                         *             "limit",
+                         *             "vars",
+                         *             "pages",
+                         *             "last",
+                         *             "in",
+                         *             "from",
+                         *             "to",
+                         *             "prev",
+                         *             "next",
+                         *             "series"
+                         *           ],
+                         *           "count": 0,
+                         *           "steps": false,
+                         *           "limit_param": "limit",
+                         *           "limit_max": 100,
+                         *           "limit_extra": true
+                         *         },
+                         *         "pages": 1,
+                         *         "last": 1,
+                         *         "in": 0,
+                         *         "from": 0,
+                         *         "to": 0,
+                         *         "prev": null,
+                         *         "next": null,
+                         *         "series": [
+                         *           "1"
+                         *         ]
                          *       }
-                         *     ]
+                         *     }
                          */
                         "application/json": {
-                            id: number;
-                            condition: string | null;
-                            created_at: string;
-                            developer: string;
-                            genre: string;
-                            notes: string | null;
-                            platform: string;
-                            publisher: string | null;
-                            region: string | null;
-                            title: string;
-                            updated_at: string;
-                            year: number;
-                        }[];
+                            data: {
+                                id: number;
+                                condition: string;
+                                created_at: string;
+                                developer: string;
+                                genre: string;
+                                notes: string;
+                                platform: string;
+                                publisher: string;
+                                region: string;
+                                title: string;
+                                updated_at: string;
+                                user_id: number;
+                                year: number;
+                            }[];
+                            pagination: {
+                                scaffold_url: string;
+                                first_url: string;
+                                prev_url: string;
+                                page_url: string;
+                                next_url: string;
+                                last_url: string;
+                                count: number;
+                                page: number;
+                                limit: number;
+                                vars: {
+                                    count_args: string[];
+                                    ends: boolean;
+                                    limit: number;
+                                    outset: number;
+                                    page: number;
+                                    page_param: string;
+                                    size: number;
+                                    metadata: string[];
+                                    count: number;
+                                    steps?: boolean;
+                                    limit_param?: string;
+                                    limit_max?: number;
+                                    limit_extra?: boolean;
+                                };
+                                pages: number;
+                                last: number;
+                                in: number;
+                                from: number;
+                                to: number;
+                                prev: unknown;
+                                next: unknown;
+                                series: string[];
+                            };
+                        };
                     };
                 };
                 /** @description returns 401 without authentication */
@@ -375,7 +467,7 @@ export interface paths {
             };
         };
         put?: never;
-        /** Create a game (unauthorized) */
+        /** Create a game */
         post: {
             parameters: {
                 query?: never;
@@ -394,7 +486,7 @@ export interface paths {
                      *         "genre": "Action-adventure",
                      *         "developer": "Nintendo",
                      *         "publisher": "Nintendo",
-                     *         "region": "NTSC",
+                     *         "region": "USA",
                      *         "condition": "Good",
                      *         "notes": "Boxed copy"
                      *       }
@@ -416,7 +508,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description creates a game */
+                /** @description creates a game for the authenticated user */
                 201: {
                     headers: {
                         [name: string]: unknown;
@@ -424,18 +516,19 @@ export interface paths {
                     content: {
                         /**
                          * @example {
-                         *       "id": 75,
+                         *       "id": 185,
                          *       "condition": "Good",
-                         *       "created_at": "2026-06-05T15:19:07.651Z",
+                         *       "created_at": "2026-06-06T11:39:43.517Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
                          *       "notes": "Boxed copy",
                          *       "platform": "NES",
                          *       "publisher": "Nintendo",
-                         *       "region": "NTSC",
+                         *       "region": "USA",
                          *       "title": "The Legend of Zelda",
-                         *       "updated_at": "2026-06-05T15:19:07.651Z",
-                         *       "year": 1986
+                         *       "updated_at": "2026-06-06T11:39:43.517Z",
+                         *       "year": 1986,
+                         *       "user_id": 505
                          *     }
                          */
                         "application/json": {
@@ -451,6 +544,7 @@ export interface paths {
                             title: string;
                             updated_at: string;
                             year: number;
+                            user_id?: number;
                         };
                     };
                 };
@@ -481,6 +575,12 @@ export interface paths {
                          *       "errors": {
                          *         "title": [
                          *           "can't be blank"
+                         *         ],
+                         *         "genre": [
+                         *           "can't be blank"
+                         *         ],
+                         *         "developer": [
+                         *           "can't be blank"
                          *         ]
                          *       }
                          *     }
@@ -488,6 +588,8 @@ export interface paths {
                         "application/json": {
                             errors: {
                                 title: string[];
+                                genre?: string[];
+                                developer?: string[];
                             };
                         };
                     };
@@ -507,7 +609,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get a game (unauthorized) */
+        /** Get a game */
         get: {
             parameters: {
                 query?: never;
@@ -520,7 +622,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description returns a game */
+                /** @description returns a game belonging to the authenticated user */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -528,18 +630,19 @@ export interface paths {
                     content: {
                         /**
                          * @example {
-                         *       "id": 74,
+                         *       "id": 183,
                          *       "condition": "Good",
-                         *       "created_at": "2026-06-05T15:19:07.637Z",
+                         *       "created_at": "2026-06-06T11:39:43.497Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
                          *       "notes": "Boxed copy",
                          *       "platform": "NES",
                          *       "publisher": "Nintendo",
-                         *       "region": "NTSC",
+                         *       "region": "USA",
                          *       "title": "The Legend of Zelda",
-                         *       "updated_at": "2026-06-05T15:19:07.637Z",
-                         *       "year": 1986
+                         *       "updated_at": "2026-06-06T11:39:43.497Z",
+                         *       "year": 1986,
+                         *       "user_id": 501
                          *     }
                          */
                         "application/json": {
@@ -555,6 +658,7 @@ export interface paths {
                             title: string;
                             updated_at: string;
                             year: number;
+                            user_id?: number;
                         };
                     };
                 };
@@ -594,7 +698,7 @@ export interface paths {
         };
         put?: never;
         post?: never;
-        /** Delete a game (unauthorized) */
+        /** Delete a game */
         delete: {
             parameters: {
                 query?: never;
@@ -607,7 +711,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description deletes a game */
+                /** @description deletes a game belonging to the authenticated user */
                 204: {
                     headers: {
                         [name: string]: unknown;
@@ -650,7 +754,7 @@ export interface paths {
         };
         options?: never;
         head?: never;
-        /** Update a game (unauthorized) */
+        /** Update a game */
         patch: {
             parameters: {
                 query?: never;
@@ -672,7 +776,7 @@ export interface paths {
                      *         "genre": "Action-adventure",
                      *         "developer": "Nintendo",
                      *         "publisher": "Nintendo",
-                     *         "region": "NTSC",
+                     *         "region": "USA",
                      *         "condition": "Good",
                      *         "notes": "Boxed copy"
                      *       }
@@ -694,7 +798,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description updates a game */
+                /** @description updates a game belonging to the authenticated user */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -704,16 +808,17 @@ export interface paths {
                          * @example {
                          *       "title": "Zelda II",
                          *       "year": 1986,
-                         *       "id": 76,
+                         *       "id": 186,
                          *       "condition": "Good",
-                         *       "created_at": "2026-06-05T15:19:07.657Z",
+                         *       "created_at": "2026-06-06T11:39:43.528Z",
                          *       "developer": "Nintendo",
                          *       "genre": "Action-adventure",
                          *       "notes": "Boxed copy",
                          *       "platform": "NES",
                          *       "publisher": "Nintendo",
-                         *       "region": "NTSC",
-                         *       "updated_at": "2026-06-05T15:19:07.661Z"
+                         *       "region": "USA",
+                         *       "updated_at": "2026-06-06T11:39:43.530Z",
+                         *       "user_id": 507
                          *     }
                          */
                         "application/json": {
@@ -729,6 +834,7 @@ export interface paths {
                             publisher: string | null;
                             region: string | null;
                             updated_at: string;
+                            user_id?: number;
                         };
                     };
                 };
@@ -811,7 +917,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "user_f1fa8a62@example.com",
+                     *       "email": "user_2bfde5ea@example.com",
                      *       "password": "password123"
                      *     }
                      */
@@ -936,7 +1042,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "268_58xC0Omdu4XrUmj_LmQF8BLCv8rhR7JAuWEe5wfoofo",
+                     *       "key": "491_tPaSNwJUqKcIVARRbVRJItZIHu6Yu_CIKsgwVAva6LY",
                      *       "password": "newpassword456",
                      *       "password-confirm": "newpassword456"
                      *     }
@@ -1010,7 +1116,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "user_b261355f@example.com"
+                     *       "email": "user_c2fc445c@example.com"
                      *     }
                      */
                     "application/json": {
@@ -1085,7 +1191,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "269_3axdhG00xLlDhq8W33j3GE9Ydr4I_idvIseKQuhGpGA"
+                     *       "key": "492_8AG8sEeYRq8FljE_myiWS01bm8d57vvhLwUDiFXs3GA"
                      *     }
                      */
                     "application/json": {
@@ -1155,7 +1261,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "email": "unverified_888af56e@example.com"
+                     *       "email": "unverified_ce96457f@example.com"
                      *     }
                      */
                     "application/json": {
@@ -1225,7 +1331,7 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "key": "273_hyu-z0jEZpR0Ja4c5k1qXR1_YX9qHumthKNDkJ8rky0"
+                     *       "key": "496_rHdxvXdnH46R07-JNWLRrAZm-GQcVMb3Zf_8TuLrljw"
                      *     }
                      */
                     "application/json": {

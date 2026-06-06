@@ -14,7 +14,7 @@ export function EditGamePage() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["games", numericId],
+    queryKey: ["games", "detail", numericId],
     queryFn: () => getGame(numericId!),
     enabled: numericId !== null,
   });
@@ -23,7 +23,7 @@ export function EditGamePage() {
     mutationFn: (gameInput: GameInput) => updateGame(numericId!, gameInput),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["games"] });
-      navigate("/games");
+      navigate(-1);
     },
   });
 

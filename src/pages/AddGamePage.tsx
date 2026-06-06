@@ -11,7 +11,7 @@ export function AddGamePage() {
     mutationFn: createGame,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["games"] });
-      navigate("/games");
+      navigate(-1);
     },
   });
 

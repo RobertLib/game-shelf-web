@@ -30,7 +30,11 @@ type ReqBody<
 
 // ── Domain types derived from the schema ──────────────────────────────────────
 
-export type Game = OkBody<"/games", "get"> extends (infer G)[] ? G : never;
+type GamesListBody = OkBody<"/games", "get">;
+export type Game = GamesListBody extends { data: (infer G)[] } ? G : never;
+export type PaginationMeta = GamesListBody extends { pagination: infer P }
+  ? P
+  : never;
 export type GameInput = NonNullable<ReqBody<"/games", "post">>["game"];
 
 // ── Error handling ────────────────────────────────────────────────────────────
@@ -177,9 +181,11 @@ export async function verifyAccountResend(
 
 // ── Games ─────────────────────────────────────────────────────────────────────
 
-export async function listGames(): Promise<Game[]> {
-  const result = await request<Game[]>("/games");
-  return result.data;
+export async function listGames(
+  page = 1,
+): Promise<{ data: Game[]; pagination: PaginationMeta }> {
+  const result = await request<GamesListBody>(`/games?page=${page}`);
+  return result.data as { data: Game[]; pagination: PaginationMeta };
 }
 
 export async function getGame(id: number): Promise<Game> {
