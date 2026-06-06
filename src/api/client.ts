@@ -30,12 +30,12 @@ type ReqBody<
 
 // ── Domain types derived from the schema ──────────────────────────────────────
 
-type GamesListBody = OkBody<"/games", "get">;
+type GamesListBody = OkBody<"/api/v1/games", "get">;
 export type Game = GamesListBody extends { data: (infer G)[] } ? G : never;
 export type PaginationMeta = GamesListBody extends { pagination: infer P }
   ? P
   : never;
-export type GameInput = NonNullable<ReqBody<"/games", "post">>["game"];
+export type GameInput = NonNullable<ReqBody<"/api/v1/games", "post">>["game"];
 
 // ── Error handling ────────────────────────────────────────────────────────────
 
@@ -96,13 +96,16 @@ async function request<T>(
 // ── Auth ──────────────────────────────────────────────────────────────────────
 
 export async function login(
-  email: ReqBody<"/login", "post">["email"],
-  password: ReqBody<"/login", "post">["password"],
+  email: ReqBody<"/api/v1/login", "post">["email"],
+  password: ReqBody<"/api/v1/login", "post">["password"],
 ) {
-  const result = await request<OkBody<"/login", "post">>("/login", {
-    method: "POST",
-    body: JSON.stringify({ email, password }),
-  });
+  const result = await request<OkBody<"/api/v1/login", "post">>(
+    "/api/v1/login",
+    {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    },
+  );
   const authHeader = result.headers.get("Authorization");
   const token = authHeader?.startsWith("Bearer ")
     ? authHeader.slice(7)
@@ -111,31 +114,37 @@ export async function login(
 }
 
 export async function logout() {
-  return request<OkBody<"/logout", "post">>("/logout", {
+  return request<OkBody<"/api/v1/logout", "post">>("/api/v1/logout", {
     method: "POST",
   });
 }
 
 export async function createAccount(
-  email: ReqBody<"/create-account", "post">["email"],
-  password: ReqBody<"/create-account", "post">["password"],
-  passwordConfirm: ReqBody<"/create-account", "post">["password-confirm"],
+  email: ReqBody<"/api/v1/create-account", "post">["email"],
+  password: ReqBody<"/api/v1/create-account", "post">["password"],
+  passwordConfirm: ReqBody<
+    "/api/v1/create-account",
+    "post"
+  >["password-confirm"],
 ) {
-  return request<OkBody<"/create-account", "post">>("/create-account", {
-    method: "POST",
-    body: JSON.stringify({
-      email,
-      password,
-      "password-confirm": passwordConfirm,
-    }),
-  });
+  return request<OkBody<"/api/v1/create-account", "post">>(
+    "/api/v1/create-account",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+        "password-confirm": passwordConfirm,
+      }),
+    },
+  );
 }
 
 export async function resetPasswordRequest(
-  email: ReqBody<"/reset-password-request", "post">["email"],
+  email: ReqBody<"/api/v1/reset-password-request", "post">["email"],
 ) {
-  return request<OkBody<"/reset-password-request", "post">>(
-    "/reset-password-request",
+  return request<OkBody<"/api/v1/reset-password-request", "post">>(
+    "/api/v1/reset-password-request",
     {
       method: "POST",
       body: JSON.stringify({ email }),
@@ -144,34 +153,43 @@ export async function resetPasswordRequest(
 }
 
 export async function resetPassword(
-  key: ReqBody<"/reset-password", "post">["key"],
-  password: ReqBody<"/reset-password", "post">["password"],
-  passwordConfirm: ReqBody<"/reset-password", "post">["password-confirm"],
+  key: ReqBody<"/api/v1/reset-password", "post">["key"],
+  password: ReqBody<"/api/v1/reset-password", "post">["password"],
+  passwordConfirm: ReqBody<
+    "/api/v1/reset-password",
+    "post"
+  >["password-confirm"],
 ) {
-  return request<OkBody<"/reset-password", "post">>("/reset-password", {
-    method: "POST",
-    body: JSON.stringify({
-      key,
-      password,
-      "password-confirm": passwordConfirm,
-    }),
-  });
+  return request<OkBody<"/api/v1/reset-password", "post">>(
+    "/api/v1/reset-password",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        key,
+        password,
+        "password-confirm": passwordConfirm,
+      }),
+    },
+  );
 }
 
 export async function verifyAccount(
-  key: ReqBody<"/verify-account", "post">["key"],
+  key: ReqBody<"/api/v1/verify-account", "post">["key"],
 ) {
-  return request<OkBody<"/verify-account", "post">>("/verify-account", {
-    method: "POST",
-    body: JSON.stringify({ key }),
-  });
+  return request<OkBody<"/api/v1/verify-account", "post">>(
+    "/api/v1/verify-account",
+    {
+      method: "POST",
+      body: JSON.stringify({ key }),
+    },
+  );
 }
 
 export async function verifyAccountResend(
-  email: ReqBody<"/verify-account-resend", "post">["email"],
+  email: ReqBody<"/api/v1/verify-account-resend", "post">["email"],
 ) {
-  return request<OkBody<"/verify-account-resend", "post">>(
-    "/verify-account-resend",
+  return request<OkBody<"/api/v1/verify-account-resend", "post">>(
+    "/api/v1/verify-account-resend",
     {
       method: "POST",
       body: JSON.stringify({ email }),
@@ -182,7 +200,7 @@ export async function verifyAccountResend(
 // ── Games ─────────────────────────────────────────────────────────────────────
 
 export type GamesListParams = NonNullable<
-  paths["/games"]["get"]["parameters"]["query"]
+  paths["/api/v1/games"]["get"]["parameters"]["query"]
 >;
 
 export async function listGames(
@@ -196,34 +214,34 @@ export async function listGames(
   if (params.condition) qs.set("condition", params.condition);
   if (params.sort) qs.set("sort", params.sort);
   if (params.dir) qs.set("dir", params.dir);
-  const result = await request<GamesListBody>(`/games?${qs.toString()}`);
+  const result = await request<GamesListBody>(`/api/v1/games?${qs.toString()}`);
   return result.data as { data: Game[]; pagination: PaginationMeta };
 }
 
 export async function getGame(id: number): Promise<Game> {
-  const result = await request<Game>(`/games/${id}`);
-  return result.data;
+  const result = await request<{ data: Game }>(`/api/v1/games/${id}`);
+  return result.data.data;
 }
 
 export async function createGame(game: GameInput): Promise<Game> {
-  const result = await request<Game>("/games", {
+  const result = await request<{ data: Game }>("/api/v1/games", {
     method: "POST",
     body: JSON.stringify({ game }),
   });
-  return result.data;
+  return result.data.data;
 }
 
 export async function updateGame(
   id: number,
   game: Partial<GameInput>,
 ): Promise<Game> {
-  const result = await request<Game>(`/games/${id}`, {
+  const result = await request<{ data: Game }>(`/api/v1/games/${id}`, {
     method: "PATCH",
     body: JSON.stringify({ game }),
   });
-  return result.data;
+  return result.data.data;
 }
 
 export async function deleteGame(id: number): Promise<void> {
-  await request<null>(`/games/${id}`, { method: "DELETE" });
+  await request<null>(`/api/v1/games/${id}`, { method: "DELETE" });
 }
