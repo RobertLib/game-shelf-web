@@ -28,15 +28,6 @@ type ReqBody<
   ? B
   : never;
 
-// ── Domain types derived from the schema ──────────────────────────────────────
-
-type GamesListBody = OkBody<"/api/v1/games", "get">;
-export type Game = GamesListBody extends { data: (infer G)[] } ? G : never;
-export type PaginationMeta = GamesListBody extends { pagination: infer P }
-  ? P
-  : never;
-export type GameInput = NonNullable<ReqBody<"/api/v1/games", "post">>["game"];
-
 // ── Error handling ────────────────────────────────────────────────────────────
 
 export type ApiError = {
@@ -201,7 +192,70 @@ export async function verifyAccountResend(
   );
 }
 
+// ── Shared ────────────────────────────────────────────────────────────────────
+
+export type PaginationMeta =
+  OkBody<"/api/v1/games", "get"> extends {
+    pagination: infer P;
+  }
+    ? P
+    : never;
+
+// ── Users ─────────────────────────────────────────────────────────────────────
+
+type UsersListBody = OkBody<"/api/v1/users", "get">;
+export type User = UsersListBody extends { data: (infer U)[] } ? U : never;
+export type UserInput = NonNullable<ReqBody<"/api/v1/users", "post">>["user"];
+
+export type UsersListParams = NonNullable<
+  paths["/api/v1/users"]["get"]["parameters"]["query"]
+>;
+
+export async function listUsers(
+  params: UsersListParams = {},
+): Promise<UsersListBody> {
+  const qs = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => v != null && qs.set(k, String(v)));
+  const result = await request<UsersListBody>(`/api/v1/users?${qs.toString()}`);
+  return result.data;
+}
+
+export async function getUser(id: number): Promise<User> {
+  const result = await request<{ data: User }>(`/api/v1/users/${id}`);
+  return result.data.data;
+}
+
+export async function createUser(
+  user: UserInput,
+  password: string,
+): Promise<User> {
+  const result = await request<{ data: User }>("/api/v1/users", {
+    method: "POST",
+    body: JSON.stringify({ user, password }),
+  });
+  return result.data.data;
+}
+
+export async function updateUser(
+  id: number,
+  user: Partial<UserInput>,
+): Promise<User> {
+  const result = await request<{ data: User }>(`/api/v1/users/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ user }),
+  });
+  return result.data.data;
+}
+
+export async function deleteUser(id: number): Promise<void> {
+  await request<null>(`/api/v1/users/${id}`, { method: "DELETE" });
+}
+
 // ── Games ─────────────────────────────────────────────────────────────────────
+
+type GamesListBody = OkBody<"/api/v1/games", "get">;
+export type Game = GamesListBody extends { data: (infer G)[] } ? G : never;
+export type GameInput = NonNullable<ReqBody<"/api/v1/games", "post">>["game"];
 
 export type GamesListParams = NonNullable<
   paths["/api/v1/games"]["get"]["parameters"]["query"]
@@ -209,17 +263,11 @@ export type GamesListParams = NonNullable<
 
 export async function listGames(
   params: GamesListParams = {},
-): Promise<{ data: Game[]; pagination: PaginationMeta }> {
+): Promise<GamesListBody> {
   const qs = new URLSearchParams();
-  if (params.page && params.page > 1) qs.set("page", String(params.page));
-  if (params.q) qs.set("q", params.q);
-  if (params.platform) qs.set("platform", params.platform);
-  if (params.region) qs.set("region", params.region);
-  if (params.condition) qs.set("condition", params.condition);
-  if (params.sort) qs.set("sort", params.sort);
-  if (params.dir) qs.set("dir", params.dir);
+  Object.entries(params).forEach(([k, v]) => v != null && qs.set(k, String(v)));
   const result = await request<GamesListBody>(`/api/v1/games?${qs.toString()}`);
-  return result.data as { data: Game[]; pagination: PaginationMeta };
+  return result.data;
 }
 
 export async function getGame(id: number): Promise<Game> {
